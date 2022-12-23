@@ -1,0 +1,33 @@
+{
+    "name": "romannumerals",
+    "version": "1.0.0",
+    "description": "Library to encode/decode Roman numerals.",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "moduleDirectories": [
+        "node_modules",
+        "src"
+    ],
+    "bugs": {
+        "url": "https://github.com/JulianRHirst/romanNumerals.git"
+    },
+    "homepage": "https://github.com/JulianRHirst/romanNumerals#readme",
+    "devDependencies": {
+        "@babel/core": "^7.20.7",
+        "@babel/preset-env": "^7.20.2",
+        "babel-jest": "^29.3.1",
+        "jest": "^29.3.1"
+    },
+    "dependencies": {
+        "node": "^19.3.0"
+    }
+}
