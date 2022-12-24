@@ -2,7 +2,7 @@ export { fromRomanNumerals, toRomanNumerals };
 
 const fromRomanNumerals = (roman) => {
 
-    const numeralValues = {
+    const numeralValue = {
         I: 1,
         V: 5,
         X: 10,
@@ -14,18 +14,17 @@ const fromRomanNumerals = (roman) => {
 
     return [...roman.toUpperCase()].reduce(
         (total, numeral, position, roman) =>
-            numeralValues[numeral] < numeralValues[roman[position + 1]]
-                ? total - numeralValues[numeral] : total + numeralValues[numeral]
+            numeralValue[numeral] < numeralValue[roman[position + 1]]
+                ? total - numeralValue[numeral] : total + numeralValue[numeral]
         , 0
     );
 };
 
 function toRomanNumerals( num ) { 
 
-    if( isNaN(num)) throw new Error("Numeric required");
+    if(isNaN(num)) throw new Error("Numeric required");
 
-
-    if( num < 1 || num >3899 ) throw new Error("Out of range");
+    if( num < 1 || num > 3899 ) throw new Error("Out of range");
 
     if( !Number.isInteger(num) ) throw new Error("Integer required");
 
