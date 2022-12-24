@@ -28,7 +28,7 @@ const romanNumeralTestCaseBase = [
     { roman:"CCCLX", arabic: 360},
     { roman:"DXXII", arabic: 522},
     { roman:"DCCLVIII", arabic: 758},
-    { roman:"MMDCCCXLVIII", arabic: 2848},
+    { roman:"MMMDCCCLXXXVIII", arabic: 3888},
     { roman:"CXIV", arabic: 114},
     { roman:"CDXCVI", arabic: 496},
     { roman:"CMLVII", arabic: 957},
@@ -41,7 +41,8 @@ const romanNumeralTestCaseBase = [
     { roman:"CCCXXVI", arabic: 326},
     { roman:"DCCVII", arabic: 707},
     { roman:"CLXII", arabic: 162},
-    { roman:"MMCMIII", arabic: 2903}
+    { roman:"MMCMIII", arabic: 2903},
+    { roman:"MMMCMXCIX", arabic: 3999},
 ]
 
 // romanFromDecimal tests
@@ -61,8 +62,8 @@ describe("toRomanNumerals", () => {
         expect(() => toRomanNumerals({a:0})).toThrow("Numeric required");
     });
 
-    test("With parameter outside range 1.. 3899, throws error", () => {
-        expect(() => toRomanNumerals(3900)).toThrowError("Out of range");
+    test("With parameter outside range 1.. 3999, throws error", () => {
+        expect(() => toRomanNumerals(4000)).toThrowError("Out of range");
         expect(() => toRomanNumerals(12301)).toThrow("Out of range");
         expect(() => toRomanNumerals(-1)).toThrow("Out of range");
         expect(() => toRomanNumerals(0)).toThrow("Out of range");
@@ -80,15 +81,27 @@ describe("fromRomanNumerals", () => {
     romanNumeralTestCaseBase.forEach(({arabic, roman}) => 
         expect(fromRomanNumerals(roman)).toBe(arabic))
     );
+
+    test("String of roman numerals required", () => {
+        expect(() => fromRomanNumerals(123)).toThrow("String of roman numerals required");
+        expect(() => fromRomanNumerals(["V", "L"])).toThrow("String of roman numerals required");
+        expect(() => fromRomanNumerals({"V":"L"})).toThrow("String of roman numerals required");
+        expect(() => fromRomanNumerals("")).toThrow("String of roman numerals required");
+    })
+
+    test("Invalid characters in parameter / out of range", () => {
+        expect(() => fromRomanNumerals("a")).toThrow("Invalid characters in parameter / out of range");
+        expect(() => fromRomanNumerals("MMMM")).toThrow("Invalid characters in parameter / out of range");
+        expect(() => fromRomanNumerals("CCCC")).toThrow("Invalid characters in parameter / out of range");
+        expect(() => fromRomanNumerals("LL")).toThrow("Invalid characters in parameter / out of range");
+        expect(() => fromRomanNumerals("VV")).toThrow("Invalid characters in parameter / out of range");
+        expect(() => fromRomanNumerals("DD")).toThrow("Invalid characters in parameter / out of range");
+        expect(() => fromRomanNumerals("IIII")).toThrow("Invalid characters in parameter / out of range");
+        expect(() => fromRomanNumerals("XXXX")).toThrow("Invalid characters in parameter / out of range");
+        expect(() => fromRomanNumerals("VIV")).toThrow("Invalid characters in parameter / out of range");
+        expect(() => fromRomanNumerals("LCL")).toThrow("Invalid characters in parameter / out of range");
+
+    })
+
 });
-/* 
-test("fromRomanNumerals() without parameters gives error", () => expect(fromRomanNumerals().toThrow("romanFromarabic: paramater required - string containing roman numerals"))));
-test("fromRomanNumerals() with invalid characters or nonstring gives error", () => expect(fromRomanNumerals(-1).toThrow("romanFromarabic: error, positive values only"))));
-test("fromRomanNumerals() with negative value gives error", () => expect(fromRomanNumerals(0).toThrow("romanFromarabic: error, positive values only"))));
-test("fromRomanNumerals() with negative value gives error", () => expect(fromRomanNumerals(-234).toThrow("romanFromarabic: error, positive values only"))));
-test("fromRomanNumerals() with non-numeric gives error", () => expect(fromRomanNumerals("").toThrow("romanFromarabic: error, non-numeric value passed"))));
-test("fromRomanNumerals() with non-numeric gives error", () => expect(fromRomanNumerals([]).toThrow("romanFromarabic: error, non-numeric value passed"))));
-test("fromRomanNumerals() with non-numeric gives error", () => expect(fromRomanNumerals(3001).toThrow("romanFromarabic: error, maximum value 3000"))));
-test("fromRomanNumerals() with non-numeric gives error", () => expect(fromRomanNumerals(3001).toThrow("romanFromarabic: error, maximum value 3000"))));
-test("fromRomanNumerals() with non-numeric gives error", () => expect(fromRomanNumerals(12301).toThrow("romanFromarabic: error, maximum value 3000"))));
-*/
+
